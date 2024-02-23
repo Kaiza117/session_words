@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Session Words</title>
+    <style>
+        .left_side{
+            margin-left: 20px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .right_side{
+            margin-left:50px;
+            display: inline-block;
+        }
+        .input_box{
+            margin-bottom: 10px;
+        }
+        .radials{
+            margin-bottom: 20px;
+        }
+        .checkbox{
+            margin-bottom: 20px;
+        }
+        .green{
+            color:green;
+        }
+        .red{
+            color:red
+        }
+        .blue{
+            color: blue;
+        }
+        .bold{
+            font-weight: 50px;
+        }
+        .normal{
+            font-weight:normal;
+        }
+    </style>
+</head>
+<body>
+    <div class='left_side'>
+        <h1 class='display-4'><small>Add a new word</small></h1>
+        <form action='/word_add' method='post'>
+            {% csrf_token %}
+                <input class="form-control input_box" type="text" placeholder="add word here" name='word'>
+                <div class='radials'>
+                        <h2 class='h2'><small>Choose color:</small></h5>
+                        <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="color" id="exampleRadios1" value="red">
+                                    <label class="form-check-label" for="exampleRadios1">
+                                    Red
+                                    </label> 
+                        </div>
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" name="color" id="exampleRadios2" value="green">
+                                <label class="form-check-label" for="exampleRadios2">
+                                Green
+                                </label>
+                        </div>
+                        <div class="form-check">
+                                <input class="form-check-input" type="radio" name="color" id="exampleRadios3" value="blue">
+                                <label class="form-check-label" for="exampleRadios3">
+                                Blue
+                                </label>
+                        </div>
+                        <div class="form-check">
+                                <input class="form-check-input" type="hidden" name="color" id="exampleRadios3">
+                                
+                        </div>
+                </div>
+                <div class="form-check checkbox">
+                        <input class="form-check-input" type="checkbox" value="bold" id="bold" name='bold'>
+                        <label class="form-check-label" for="defaultCheck1">
+                        show in <b>BIG</b> fonts!
+                        </label>
+                </div>
+                        <button type="submit" class="btn btn-info" name='submit'>Add to Session</button>
+        </form>
+    </div>
+    <div class="right_side">
+        {% for word in request.session.word_log %}
+            <p><h5 class='{{word.color}} {{word.bold}}'>{{word.word}} </h5>- {{word.time}}</p>
+        {% endfor %}  
+    </div>
+</html>
